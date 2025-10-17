@@ -2,122 +2,119 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>tab title</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>tab title</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+  <!-- library -->
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 
-    <style>
-        body {
-            margin: 0;
-            display: grid;
-            place-items: center;
-            height: 100vh;
-            background: radial-gradient(circle at 20% 30%, #fbcfe8, #a78bfa);
-            font-family: 'Poppins', Calibri;
-            color: #000000;
-        }
+  <style>
+    body {
+      margin: 0;
+      display: grid;
+      place-items: center;
+      height: 100vh;
+      background: radial-gradient(circle at 20% 30%, #fbcfe8, #a78bfa);
+      font-family: 'Poppins', Calibri, sans-serif;
+      color: #000000;
+    }
 
-        .card {
-            background: #ffffff;
-            padding: 2rem 3rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px #0002;
-            max-width: 600px;
-            text-align: center;
-        }
+    .card {
+      background: #ffffff;
+      padding: 2rem 3rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px #0002;
+      max-width: 600px;
+      text-align: center;
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            color: #be29ec;
-        }
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: #be29ec;
+    }
 
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin: 1rem 0;
-        }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 1rem 0;
+    }
 
-        .pill {
-            display: inline-block;
-            margin: 0.4rem;
-            padding: 0.5rem 1rem;
-            border-radius: 999px;
-            background: #ede9fe;
-            color: #800080;
-            font-weight: 600;
-        }
+    .pill {
+      display: inline-block;
+      margin: 0.4rem;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: #ede9fe;
+      color: #800080;
+      font-weight: 600;
+    }
 
-        .btn {
-            display: inline-block;
-            margin-top: 1.4rem;
-            padding: 0.8rem 1.4rem;
-            border-radius: 0.8rem;
-            background: linear-gradient(45deg, #efbbff, #660066);
-            color: #ffffff;
-            font-weight: 700;
-            border: none;
-            cursor: url('path/to/your/heart.png');
-            < !-- need to be a path on the github -->
-        }
+    .btn {
+      display: inline-block;
+      margin-top: 1.4rem;
+      padding: 0.8rem 1.4rem;
+      border-radius: 0.8rem;
+      background: linear-gradient(45deg, #efbbff, #660066);
+      color: #ffffff;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      /* upload a heart cursor image, use:
+         cursor: url('https://username.github.io/repo-name/heart.png'), pointer;
+      */
+    }
 
-        .btn:hover {
-            transform: scale(1.05);
-            transition: 0.2s;
-        }
-    </style>
+    .btn:hover {
+      transform: scale(1.05);
+      transition: 0.2s;
+    }
+  </style>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLFY98WX2Y"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-VLFY98WX2Y');
-    </script>
-
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLFY98WX2Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-VLFY98WX2Y');
+  </script>
 </head>
 
 <body>
-    <main class="card">
-        <h1>title</h1>
-        <p>paragraph</p>
+  <main class="card">
+    <h1>title</h1>
+    <p>paragraph</p>
 
-        <div class="pill">content</div>
-        <div class="pill">content</div>
-        <div class="pill">content</div>
-        <div class="pill">content</div>
+    <div class="pill">content</div>
+    <div class="pill">content</div>
+    <div class="pill">content</div>
+    <div class="pill">content</div>
 
-        <p>paragraph</p>
+    <p>paragraph</p>
 
-        <button class="btn" id="confettiBtn">Click me</button>
-    </main>
+    <button class="btn" id="confettiBtn">Click me</button>
+  </main>
 
-    <script>
-        document.getElementById("confettiBtn").addEventListener("click", () => {
-            // Launch confetti
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: {
-                    y: 0.6
-                }
-            });
+  <script>
+    document.getElementById("confettiBtn").addEventListener("click", () => {
+      // confetti
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
 
-            // Log the click to GA
-            gtag('event', 'button_click', {
-                event_category: 'engagement',
-                event_label: 'Invite Button',
-                value: 1
-            });
+      // Log Google Analytics
+      gtag('event', 'button_click', {
+        event_category: 'engagement',
+        event_label: 'Invite Button',
+        value: 1
+      });
 
-            alert("She said yes! 💕");
-        });
-    </script>
+      alert("She said yes! 💕");
+    });
+  </script>
 </body>
-
 </html>
