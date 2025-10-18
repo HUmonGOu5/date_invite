@@ -2,123 +2,354 @@
 <html lang="en">
 
 <head>
-  
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLFY98WX2Y"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-VLFY98WX2Y');
-  </script>
-  
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <title>tab title</title>
+    <!-- Performance: help GA load a hair faster -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-  <!-- library -->
-  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLFY98WX2Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-  <style>
-    body {
-      margin: 0;
-      display: grid;
-      place-items: center;
-      height: 100vh;
-      background: radial-gradient(circle at 20% 30%, #fbcfe8, #a78bfa);
-      font-family: 'Poppins', Calibri, sans-serif;
-      color: #000000;
-    }
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        // Enable debug so events appear in DebugView
+        gtag('config', 'G-VLFY98WX2Y', {
+            debug_mode: true
+        });
+    </script>
 
-    .card {
-      background: #ffffff;
-      padding: 2rem 3rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 30px #0002;
-      max-width: 600px;
-      text-align: center;
-    }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pick Our Date</title>
 
-    h1 {
-      font-size: 2.5rem;
-      margin: 0;
-      color: #be29ec;
-    }
+    <!-- Confetti lib -->
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 
-    p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin: 1rem 0;
-    }
+    <style>
+        body {
+            margin: 0;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            background: radial-gradient(circle at 20% 30%, #fbcfe8, #a78bfa);
+            font-family: 'Poppins', Calibri, sans-serif;
+            color: #000;
+        }
 
-    .pill {
-      display: inline-block;
-      margin: 0.4rem;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      background: #ede9fe;
-      color: #800080;
-      font-weight: 600;
-    }
+        .card {
+            background: #fff;
+            padding: 2rem 3rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px #0002;
+            max-width: 680px;
+            text-align: center;
+        }
 
-    .btn {
-      display: inline-block;
-      margin-top: 1.4rem;
-      padding: 0.8rem 1.4rem;
-      border-radius: 0.8rem;
-      background: linear-gradient(45deg, #efbbff, #660066);
-      color: #ffffff;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      /* upload a heart cursor image, use:
-         cursor: url('https://username.github.io/repo-name/heart.png'), pointer;
-      */
-    }
+        h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            color: #be29ec;
+        }
 
-    .btn:hover {
-      transform: scale(1.05);
-      transition: 0.2s;
-    }
-  </style>
+        p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
 
+        .pill {
+            display: inline-block;
+            margin: .4rem;
+            padding: .5rem 1rem;
+            border-radius: 999px;
+            background: #ede9fe;
+            color: #800080;
+            font-weight: 600;
+            cursor: pointer;
+            border: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: .8rem 1.4rem;
+            border-radius: .8rem;
+            background: linear-gradient(45deg, #efbbff, #660066);
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: transform .2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        #options,
+        #timeSuggestions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: .5rem;
+        }
+
+        input[type="time"],
+        input[type="datetime-local"] {
+            padding: .5rem;
+            border: 2px solid #be29ec;
+            border-radius: .6rem;
+        }
+
+        /* Accessibility: visible focus when tabbing */
+        .pill:focus-visible,
+        .btn:focus-visible {
+            outline: 3px solid #7c3aed;
+            outline-offset: 2px;
+        }
+    </style>
 </head>
 
 <body>
-  <main class="card">
-    <h1>title</h1>
-    <p>paragraph</p>
+    <main class="card">
+        <h1>Pick Our Date Vibe</h1>
+        <p>Choose as many as you like:</p>
 
-    <div class="pill">content</div>
-    <div class="pill">content</div>
-    <div class="pill">content</div>
-    <div class="pill">content</div>
+        <!-- OPTIONS -->
+        <div id="options">
+            <button type="button" class="pill" data-id="skate" data-label="ice skating" aria-pressed="false">Ice skating (?)</button>
+            <button type="button" class="pill" data-id="walk" data-label="taking a long walk" aria-pressed="false">Long walk (?)</button>
+            <button type="button" class="pill" data-id="sevenbrew" data-label="getting Seven Brew" aria-pressed="false">7Brew (?)</button>
+            <button type="button" class="pill" data-id="pasta" data-label="getting a pasta dinner" aria-pressed="false">Pasta dinner (?)</button>
+            <button type="button" class="pill" data-id="retro" data-label="thrifting for electronics" aria-pressed="false">Thrifting for electronics (?)</button>
+            <button type="button" class="pill" data-id="pictures" data-label="taking pictures" aria-pressed="false">Pictures on Mavica or Polaroid (?)</button>
+            <button type="button" class="pill" data-id="pickleball" data-label="playing pickleball" aria-pressed="false">Pickleball (?)</button>
+        </div>
 
-    <p>paragraph</p>
+        <!-- SUGGEST A TIME (SATURDAY ONLY, FIXED TO OCT 25, 2025) -->
+        <h2 style="margin-top:1.5rem;color:#be29ec;font-size:1.25rem;">Suggest a time (Saturday)</h2>
+        <p>Pick a Saturday time or set your own:</p>
 
-    <button class="btn" id="confettiBtn">Click me</button>
-  </main>
+        <div id="timeSuggestions"></div>
 
-  <script>
-    document.getElementById("confettiBtn").addEventListener("click", () => {
-      // confetti
-      confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+        <div style="margin-top:.75rem;">
+            <label for="customSatTime" style="display:block;margin-bottom:.35rem;">Custom Saturday time:</label>
+            <input id="customSatTime" type="time" />
+            <button type="button" id="useCustomSatTime" class="btn" style="margin-left:.5rem;">Use this time</button>
+        </div>
 
-      // Log Google Analytics
-      gtag('event', 'button_click', {
-        event_category: 'engagement',
-        event_label: 'Invite Button',
-        value: 1
-      });
+        <p style="margin-top:1rem">When you're ready:</p>
+        <button type="button" class="btn" id="submitChoices">Submit choices</button>
+        <p id="status" aria-live="polite" style="min-height:1.2rem;margin-top:.75rem;"></p>
+    </main>
 
-    });
-  </script>
+    <script>
+        // ---------- Style helpers
+        const pillOnStyle = el => {
+            el.style.background = '#dcd4ff';
+            el.style.outline = '2px solid #660066';
+        };
+        const pillOffStyle = el => {
+            el.style.background = '#ede9fe';
+            el.style.outline = 'none';
+        };
+
+        // ---------- GA-friendly date label
+        const fmt = new Intl.DateTimeFormat(undefined, {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit'
+        });
+
+        // ---------- Fixed target date: Oct 25, 2025 (month is 0-indexed)
+        function targetDate() {
+            return new Date(2025, 9, 25);
+        } // 2025-10-25 local
+
+        // ---------- Build Saturday time slots for the fixed date
+        function saturdaySlots() {
+            const sat = targetDate();
+            const hm = [
+                [10, 0],
+                [13, 0],
+                [15, 0],
+                [18, 30],
+                [20, 0]
+            ]; // adjust as needed
+            return hm.map(([h, m]) => {
+                const d = new Date(sat);
+                d.setHours(h, m, 0, 0);
+                return d;
+            });
+        }
+
+        // ---------- Render Saturday pills
+        const timeContainer = document.getElementById('timeSuggestions');
+        let selectedTime = null; // { id, when, label }
+
+        function renderSaturdayPills() {
+            timeContainer.innerHTML = '';
+            const slots = saturdaySlots();
+
+            gtag('event', 'time_suggestion_view', {
+                count: slots.length,
+                day: 'Saturday',
+                fixed_date: targetDate().toDateString(),
+                debug_mode: true
+            });
+
+            slots.forEach((dateObj, i) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'pill';
+                btn.textContent = fmt.format(dateObj);
+                btn.dataset.id = `sat-${i}`;
+                btn.dataset.iso = dateObj.toISOString();
+                btn.dataset.label = btn.textContent;
+                btn.setAttribute('aria-pressed', 'false');
+                pillOffStyle(btn);
+
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#timeSuggestions .pill').forEach(b => {
+                        b.setAttribute('aria-pressed', 'false');
+                        pillOffStyle(b);
+                    });
+                    btn.setAttribute('aria-pressed', 'true');
+                    pillOnStyle(btn);
+
+                    selectedTime = {
+                        id: btn.dataset.id,
+                        when: new Date(btn.dataset.iso),
+                        label: btn.dataset.label
+                    };
+                    gtag('event', 'time_select', {
+                        source: 'saturday_presets',
+                        time_id: selectedTime.id,
+                        time_iso: selectedTime.when.toISOString(),
+                        time_local: selectedTime.when.toLocaleString(), // local for clarity
+                        time_label: selectedTime.label,
+                        day_fixed: targetDate().toDateString(),
+                        debug_mode: true
+                    });
+                });
+
+                timeContainer.appendChild(btn);
+            });
+        }
+        renderSaturdayPills();
+
+        // ---------- Vibe option toggles (+ GA event)
+        document.querySelectorAll('#options .pill').forEach(pill => {
+            pillOffStyle(pill);
+            pill.addEventListener('click', () => {
+                const isOn = pill.getAttribute('aria-pressed') === 'true';
+                const newState = !isOn;
+                pill.setAttribute('aria-pressed', String(newState));
+                newState ? pillOnStyle(pill) : pillOffStyle(pill);
+
+                gtag('event', 'option_toggle', {
+                    group: 'date_vibes',
+                    option_id: pill.dataset.id,
+                    option_label: pill.dataset.label,
+                    state: String(newState),
+                    debug_mode: true
+                });
+            });
+        });
+
+        // ---------- Custom Saturday time (uses fixed Oct 25, 2025)
+        document.getElementById('useCustomSatTime').addEventListener('click', () => {
+            const hm = document.getElementById('customSatTime').value; // "HH:MM"
+            if (!hm) {
+                document.getElementById('status').textContent = 'Pick a Saturday time first :)';
+                return;
+            }
+            const [h, m] = hm.split(':').map(Number);
+            const sat = targetDate();
+            sat.setHours(h, m, 0, 0);
+
+            document.querySelectorAll('#timeSuggestions .pill').forEach(b => {
+                b.setAttribute('aria-pressed', 'false');
+                pillOffStyle(b);
+            });
+
+            selectedTime = {
+                id: 'sat-custom',
+                when: sat,
+                label: fmt.format(sat)
+            };
+            gtag('event', 'time_select', {
+                source: 'saturday_custom',
+                time_id: selectedTime.id,
+                time_iso: sat.toISOString(),
+                time_local: sat.toLocaleString(), // local for clarity
+                time_label: selectedTime.label,
+                day_fixed: targetDate().toDateString(),
+                debug_mode: true
+            });
+
+            document.getElementById('status').textContent = 'Time set to: ' + selectedTime.label;
+        });
+
+        // ---------- Submit (includes vibes + selected Saturday time)
+        const submitBtn = document.getElementById('submitChoices');
+        submitBtn.addEventListener('click', () => {
+            const selectedOptions = [...document.querySelectorAll('#options .pill[aria-pressed="true"]')]
+                .map(b => ({
+                    id: b.dataset.id,
+                    label: b.dataset.label
+                }));
+
+            if (selectedOptions.length === 0) {
+                document.getElementById('status').textContent = 'Pick at least one activity :)';
+                return;
+            }
+            if (!selectedTime) {
+                document.getElementById('status').textContent = 'Please choose a Saturday time :)';
+                return;
+            }
+
+            if (submitBtn.disabled) return;
+            submitBtn.disabled = true;
+
+            try {
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 160,
+                        spread: 70,
+                        origin: {
+                            y: 0.6
+                        }
+                    });
+                }
+
+                gtag('event', 'submit_preferences', {
+                    group: 'date_vibes',
+                    option_count: selectedOptions.length,
+                    option_list: selectedOptions.map(s => s.id).join('|'),
+                    selected_time_id: selectedTime.id,
+                    selected_time_iso: selectedTime.when.toISOString(),
+                    selected_time_local: selectedTime.when.toLocaleString(), // local for clarity
+                    selected_time_label: selectedTime.label,
+                    day_fixed: targetDate().toDateString(),
+                    debug_mode: true
+                });
+
+                document.getElementById('status').textContent =
+                    'Perfect! I look forward to ' + selectedOptions.map(s => s.label).join(', ') +
+                    ' — ' + selectedTime.label + ' <3';
+            } finally {
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                }, 800);
+            }
+        });
+    </script>
 </body>
+
 </html>
-
-
