@@ -106,7 +106,7 @@
                 data-id="wilson-moonhouse"
                 data-label="Wilson Park pickleball + Moonhouse sushi"
                 aria-pressed="false">
-                Wilson Park Pickleball + Moonhouse (Sushi)
+                Wilson Park Pickleball → Moonhouse (Sushi)
             </button>
 
             <button type="button" class="pill"
@@ -120,7 +120,7 @@
                 data-id="ham-boulders"
                 data-label="Hammontree’s grilled cheese + Boulders & Brews"
                 aria-pressed="false">
-                Hammontree’s Grilled Cheese + Boulders & Brews
+                Hammontree’s Grilled Cheese → Boulders & Brews (Bouldering)
             </button>
 
             <button type="button" class="pill"
@@ -134,7 +134,7 @@
                 data-id="vetro-walk-dessert"
                 data-label="Vetro 1925 dinner + night walk + dessert"
                 aria-pressed="false">
-                Vetro 1925 → Night Walk + Dessert
+                Vetro 1925 → Night Walk & Dessert
             </button>
         </div>
 
@@ -199,7 +199,7 @@
                 document.getElementById('status').textContent =
                     'Saturday it is! Let’s do ' +
                     selectedOptions.map(s => s.label).join(', ') +
-                    ' 💜';
+                    ' :)';
             } finally {
                 setTimeout(() => { submitBtn.disabled = false; }, 800);
             }
@@ -208,3 +208,4 @@
 </body>
 
 </html>
+
