@@ -224,7 +224,7 @@
           <span class="dot" aria-hidden="true"></span>
           <h2 class="optTitle">Hammontree’s → Boulders & Brews</h2>
         </div>
-        <p class="optDesc">Grab some grilled cheeses and then go bouldering</p>
+        <p class="optDesc">Grab some grilled cheese, then go bouldering. Maybe they can show you how not to burn them ;)</p>
       </button>
 
       <button type="button" class="option"
@@ -246,11 +246,11 @@
           <span class="dot" aria-hidden="true"></span>
           <h2 class="optTitle">Vetro 1925 → Night Walk & Dessert</h2>
         </div>
-        <p class="optDesc">There a catch to this one, since it's a super fancy resturant. We must go thrifting and choice each others dresswear ;)</p>
+        <p class="optDesc">There a catch to this one, since it's a super fancy resturant. We have to go thrifting and choice each others outfits ;)</p>
       </button>
     </section>
 
-    <div class="footer">
+    <div class="footer" id="footer">
       <button type="button" class="btn" id="submitChoice">Lock it in</button>
       <div id="status" aria-live="polite"></div>
     </div>
@@ -260,31 +260,34 @@
     const optionsEl = document.getElementById('options');
     const statusEl = document.getElementById('status');
     const submitBtn = document.getElementById('submitChoice');
+    const footerEl = document.getElementById('footer');
 
-    let selected = null; // { id, label }
+    let selected = null;
 
     function setSelected(btn){
-      // clear all
       document.querySelectorAll('#options .option').forEach(b => {
         b.setAttribute('aria-pressed', 'false');
       });
 
-      // set one
       btn.setAttribute('aria-pressed', 'true');
 
       selected = { id: btn.dataset.id, label: btn.dataset.label };
 
       statusEl.textContent = 'Selected: ' + selected.label;
 
-      gtag('event', 'option_select', {
+      gtag('event', {
         group: 'date_ideas',
         option_id: selected.id,
         option_label: selected.label,
         debug_mode: true
       });
+
+      // Mobile upgrade
+      if (window.matchMedia('(max-width: 720px)').matches && footerEl) {
+        footerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
 
-    // Single-select behavior
     optionsEl.querySelectorAll('.option').forEach(btn => {
       btn.addEventListener('click', () => setSelected(btn));
     });
@@ -303,7 +306,7 @@
           confetti({ particleCount: 160, spread: 70, origin: { y: 0.6 } });
         }
 
-        gtag('event', 'submit_choice', {
+        gtag('event', {
           group: 'date_ideas',
           selected_option_id: selected.id,
           selected_option_label: selected.label,
