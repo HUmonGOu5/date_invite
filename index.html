@@ -1,211 +1,320 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src=""></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', '', { debug_mode: true });
-    </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src=""></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '', { debug_mode: true });
+  </script>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pick Our Date</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pick Our Saturday Plan</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 
-    <style>
-        body {
-            margin: 0;
-            display: grid;
-            place-items: center;
-            height: 100vh;
-            background: radial-gradient(circle at 20% 30%, #fbcfe8, #a78bfa);
-            font-family: 'Poppins', Calibri, sans-serif;
-            color: #000;
-        }
+  <style>
+    :root{
+      --bg1:#fbcfe8;
+      --bg2:#a78bfa;
+      --ink:#111;
+      --purple:#660066;
+      --accent:#be29ec;
+      --card:#ffffff;
+      --muted:#5b5563;
+      --stroke:#e9e3ff;
+      --shadow: 0 12px 35px rgba(0,0,0,.12);
+      --radius: 18px;
+    }
 
-        .card {
-            background: #fff;
-            padding: 2rem 3rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px #0002;
-            max-width: 720px;
-            text-align: center;
-        }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background: radial-gradient(circle at 20% 30%, var(--bg1), var(--bg2));
+      font-family: 'Poppins', Calibri, sans-serif;
+      color:var(--ink);
+      padding: 24px;
+    }
 
-        h1 {
-            font-size: 2.2rem;
-            margin: 0;
-            color: #be29ec;
-        }
+    .wrap{
+      width:min(820px, 100%);
+      background: var(--card);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
 
-        p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            margin: 1rem 0;
-        }
+    header{
+      text-align:center;
+      padding: 6px 10px 16px;
+    }
 
-        .pill {
-            display: inline-block;
-            margin: .4rem;
-            padding: .6rem 1rem;
-            border-radius: 999px;
-            background: #ede9fe;
-            color: #800080;
-            font-weight: 600;
-            cursor: pointer;
-            border: 0;
-        }
+    h1{
+      margin:0;
+      font-size: 2.15rem;
+      color: var(--accent);
+      letter-spacing: .2px;
+    }
 
-        .btn {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: .8rem 1.4rem;
-            border-radius: .8rem;
-            background: linear-gradient(45deg, #efbbff, #660066);
-            color: #fff;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: transform .2s;
-        }
+    .sub{
+      margin:.65rem 0 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
 
-        .btn:hover {
-            transform: scale(1.05);
-        }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
 
-        #options {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: .5rem;
-        }
+    @media (max-width: 720px){
+      .grid{ grid-template-columns: 1fr; }
+      h1{ font-size: 1.85rem; }
+    }
 
-        .pill:focus-visible,
-        .btn:focus-visible {
-            outline: 3px solid #7c3aed;
-            outline-offset: 2px;
-        }
-    </style>
+    .option{
+      text-align:left;
+      border: 2px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 16px 16px 14px;
+      cursor:pointer;
+      background: linear-gradient(180deg, #fff, #faf8ff);
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+      position: relative;
+    }
+
+    .option:hover{ transform: translateY(-1px); }
+
+    .option[aria-pressed="true"]{
+      border-color: var(--purple);
+      box-shadow: 0 0 0 4px rgba(102,0,102,.12);
+    }
+
+    .titleRow{
+      display:flex;
+      align-items:flex-start;
+      gap: 10px;
+    }
+
+    .dot{
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid #c9b7ff;
+      margin-top: 2px;
+      flex: 0 0 auto;
+      position: relative;
+      background: #fff;
+    }
+
+    .option[aria-pressed="true"] .dot{
+      border-color: var(--purple);
+    }
+
+    .option[aria-pressed="true"] .dot::after{
+      content:"";
+      position:absolute;
+      inset: 4px;
+      border-radius: 999px;
+      background: var(--purple);
+    }
+
+    .optTitle{
+      margin:0;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color:#2b0b2b;
+    }
+
+    .optDesc{
+      margin:.45rem 0 0 28px;
+      color: var(--muted);
+      font-size: .96rem;
+      line-height: 1.45;
+    }
+
+    .footer{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+      align-items:center;
+      text-align:center;
+    }
+
+    .btn{
+      border: 0;
+      cursor:pointer;
+      font-weight: 800;
+      padding: .85rem 1.35rem;
+      border-radius: 14px;
+      color:#fff;
+      background: linear-gradient(45deg, #efbbff, var(--purple));
+      transition: transform .15s ease;
+    }
+    .btn:hover{ transform: scale(1.03); }
+    .btn:disabled{
+      opacity:.65;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    #status{
+      width:100%;
+      min-height: 1.25rem;
+      color: #2b0b2b;
+      margin-top: 8px;
+    }
+
+    .option:focus-visible,
+    .btn:focus-visible{
+      outline: 3px solid #7c3aed;
+      outline-offset: 3px;
+    }
+  </style>
 </head>
 
 <body>
-    <main class="card">
-        <h1>Pick Our Saturday Date</h1>
-        <p>Choose what sounds the most fun:</p>
+  <main class="wrap">
+    <header>
+      <h1>Pick Our Saturday Plan</h1>
+      <p class="sub">Choose <strong>one</strong> idea for next Saturday :)</p>
+    </header>
 
-        <div id="options">
-            <button type="button" class="pill"
-                data-id="wilson-moonhouse"
-                data-label="Wilson Park pickleball + Moonhouse sushi"
-                aria-pressed="false">
-                Wilson Park Pickleball → Moonhouse (Sushi)
-            </button>
-
-            <button type="button" class="pill"
-                data-id="minigolf-renzos"
-                data-label="mini golf + Renzo’s pasta dinner"
-                aria-pressed="false">
-                Mini Golf → Renzo’s Pasta & Italian Steakhouse
-            </button>
-
-            <button type="button" class="pill"
-                data-id="ham-boulders"
-                data-label="Hammontree’s grilled cheese + Boulders & Brews"
-                aria-pressed="false">
-                Hammontree’s Grilled Cheese → Boulders & Brews (Bouldering)
-            </button>
-
-            <button type="button" class="pill"
-                data-id="bowling-bocca"
-                data-label="bowling + Bocca Italian"
-                aria-pressed="false">
-                Bowling → Bocca Italian Eatery & Pizzeria
-            </button>
-
-            <button type="button" class="pill"
-                data-id="vetro-walk-dessert"
-                data-label="Vetro 1925 dinner + night walk + dessert"
-                aria-pressed="false">
-                Vetro 1925 → Night Walk & Dessert
-            </button>
+    <section class="grid" id="options">
+      <button type="button" class="option"
+        data-id="wilson-moonhouse"
+        data-label="Wilson Park pickleball & Moonhouse sushi"
+        aria-pressed="false">
+        <div class="titleRow">
+          <span class="dot" aria-hidden="true"></span>
+          <h2 class="optTitle">Wilson Park Pickleball → Moonhouse Sushi</h2>
         </div>
+        <p class="optDesc">Quick rematch, maybe you avenge your previous preformance ;)</p>
+      </button>
 
-        <p style="margin-top:1rem">When you're ready:</p>
-        <button type="button" class="btn" id="submitChoices">Lock It In</button>
-        <p id="status" aria-live="polite" style="min-height:1.2rem;margin-top:.75rem;"></p>
-    </main>
+      <button type="button" class="option"
+        data-id="minigolf-renzos"
+        data-label="mini golf + Renzo’s pasta dinner"
+        aria-pressed="false">
+        <div class="titleRow">
+          <span class="dot" aria-hidden="true"></span>
+          <h2 class="optTitle">Mini Golf → Renzo’s Pasta Dinner</h2>
+        </div>
+        <p class="optDesc">Golf, then pasta </p>
+      </button>
 
-    <script>
-        const pillOnStyle = el => {
-            el.style.background = '#dcd4ff';
-            el.style.outline = '2px solid #660066';
-        };
-        const pillOffStyle = el => {
-            el.style.background = '#ede9fe';
-            el.style.outline = 'none';
-        };
+      <button type="button" class="option"
+        data-id="ham-boulders"
+        data-label="Hammontree’s grilled cheese + Boulders & Brews"
+        aria-pressed="false">
+        <div class="titleRow">
+          <span class="dot" aria-hidden="true"></span>
+          <h2 class="optTitle">Hammontree’s → Boulders & Brews</h2>
+        </div>
+        <p class="optDesc">Grab some grilled cheeses and then go bouldering</p>
+      </button>
 
-        document.querySelectorAll('#options .pill').forEach(pill => {
-            pillOffStyle(pill);
-            pill.addEventListener('click', () => {
-                const isOn = pill.getAttribute('aria-pressed') === 'true';
-                const newState = !isOn;
-                pill.setAttribute('aria-pressed', String(newState));
-                newState ? pillOnStyle(pill) : pillOffStyle(pill);
+      <button type="button" class="option"
+        data-id="bowling-bocca"
+        data-label="bowling + Bocca Italian"
+        aria-pressed="false">
+        <div class="titleRow">
+          <span class="dot" aria-hidden="true"></span>
+          <h2 class="optTitle">Bowling → Bocca Italian</h2>
+        </div>
+        <p class="optDesc">Bowling and pasta is always a good choice</p>
+      </button>
 
-                gtag('event', 'option_toggle', {
-                    group: 'date_ideas',
-                    option_id: pill.dataset.id,
-                    option_label: pill.dataset.label,
-                    state: String(newState),
-                    debug_mode: true
-                });
-            });
+      <button type="button" class="option"
+        data-id="vetro-walk-dessert"
+        data-label="Vetro 1925 dinner + night walk + dessert"
+        aria-pressed="false">
+        <div class="titleRow">
+          <span class="dot" aria-hidden="true"></span>
+          <h2 class="optTitle">Vetro 1925 → Night Walk & Dessert</h2>
+        </div>
+        <p class="optDesc">There a catch to this one, since it's a super fancy resturant. We must go thrifting and choice each others dresswear ;)</p>
+      </button>
+    </section>
+
+    <div class="footer">
+      <button type="button" class="btn" id="submitChoice">Lock it in</button>
+      <div id="status" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <script>
+    const optionsEl = document.getElementById('options');
+    const statusEl = document.getElementById('status');
+    const submitBtn = document.getElementById('submitChoice');
+
+    let selected = null; // { id, label }
+
+    function setSelected(btn){
+      // clear all
+      document.querySelectorAll('#options .option').forEach(b => {
+        b.setAttribute('aria-pressed', 'false');
+      });
+
+      // set one
+      btn.setAttribute('aria-pressed', 'true');
+
+      selected = { id: btn.dataset.id, label: btn.dataset.label };
+
+      statusEl.textContent = 'Selected: ' + selected.label;
+
+      gtag('event', 'option_select', {
+        group: 'date_ideas',
+        option_id: selected.id,
+        option_label: selected.label,
+        debug_mode: true
+      });
+    }
+
+    // Single-select behavior
+    optionsEl.querySelectorAll('.option').forEach(btn => {
+      btn.addEventListener('click', () => setSelected(btn));
+    });
+
+    submitBtn.addEventListener('click', () => {
+      if (!selected){
+        statusEl.textContent = 'Pick one plan first :)';
+        return;
+      }
+
+      if (submitBtn.disabled) return;
+      submitBtn.disabled = true;
+
+      try{
+        if (typeof confetti === 'function'){
+          confetti({ particleCount: 160, spread: 70, origin: { y: 0.6 } });
+        }
+
+        gtag('event', 'submit_choice', {
+          group: 'date_ideas',
+          selected_option_id: selected.id,
+          selected_option_label: selected.label,
+          debug_mode: true
         });
 
-        const submitBtn = document.getElementById('submitChoices');
-        submitBtn.addEventListener('click', () => {
-            const selectedOptions = [...document.querySelectorAll('#options .pill[aria-pressed="true"]')]
-                .map(b => ({ id: b.dataset.id, label: b.dataset.label }));
-
-            if (selectedOptions.length === 0) {
-                document.getElementById('status').textContent = 'Pick at least one date idea :)';
-                return;
-            }
-
-            if (submitBtn.disabled) return;
-            submitBtn.disabled = true;
-
-            try {
-                if (typeof confetti === 'function') {
-                    confetti({ particleCount: 160, spread: 70, origin: { y: 0.6 } });
-                }
-
-                gtag('event', 'submit_preferences', {
-                    group: 'date_ideas',
-                    option_count: selectedOptions.length,
-                    option_list: selectedOptions.map(s => s.id).join('|'),
-                    debug_mode: true
-                });
-
-                document.getElementById('status').textContent =
-                    'Saturday it is! Let’s do ' +
-                    selectedOptions.map(s => s.label).join(', ') +
-                    ' :)';
-            } finally {
-                setTimeout(() => { submitBtn.disabled = false; }, 800);
-            }
-        });
-    </script>
+        statusEl.textContent = 'Saturday it is — ' + selected.label + ' :))';
+      } finally {
+        setTimeout(() => { submitBtn.disabled = false; }, 800);
+      }
+    });
+  </script>
 </body>
-
 </html>
-
